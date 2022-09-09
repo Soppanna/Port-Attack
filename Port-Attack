@@ -1,0 +1,44 @@
+1] Port Attack
+************************************************** **************************
+I] Open Recursive Resolver
+ 
+Windows :
+-> Refer URL :
+http://technet.microsoft.com/en-us/library/cc771738.aspx
+ 
+-> To disable recursion on the DNS server using the Windows interface
+-> Open DNS Manager.
+-> In the console tree, right-click the applicable DNS server, then click Properties.
+->DNS/applicable DNS server
+->Click the Advanced tab.
+In Server options, select the Disable recursion check box, and then click OK.
+ 
+For Plesk:
+ 
+1) Log in to your Plesk Panel as admin.
+2) On the left menu, select "Server Management > Tools & Settings" section (previously called "Server").
+3) In the main panel, select "DNS Template Settings" (previously called "DNS Settings".
+4) Select the DNS Recursion Tab.
+5) Select the Deny option and click the Set button to complete the operation.
+ 
+For Linux :
+ 
+Edit the file /etc/named.conf and change the below variables in the "options{" section to secure your DNS service:
+ 
+ 
+    allow-transfer {none;};
+    allow-recursion {none;};
+    allow-query-cache {none;}; // for BIND 9.4+
+    recursion no;
+    additional-from-cache no;
+ 
+Once these modifications are complete, you must  restart the DNS service.
+ 
+II) Open SNMP service used for an attack
+ 
+Please consider reconfiguring your SNMP system in one or more of these ways:
+-> Block queries made by unauthorized addresses. This can be done with an ACL or other firewall rule.
+-> Use a different query string than "public" and which cannot be easily guessed by a 3rd party.
+-> Disable SNMP entirely
+ 
+************************************************** **************************
